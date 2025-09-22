@@ -553,6 +553,8 @@ import { fetchProducts, setPage, setSortBy, setLimit } from "../Utils/slice/prod
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const ShopPage = () => {
+  console.log("hellloooo");
+  
   const dispatch = useDispatch();
   const {
     data: products,
@@ -571,6 +573,8 @@ const ShopPage = () => {
   // Fetch products whenever page, limit, or sort changes
   useEffect(() => {
     dispatch(fetchProducts());
+    console.log("hello");
+    
   }, [dispatch, currentPage, limit, sortBy]);
 
   const handlePrev = () => currentPage > 1 && dispatch(setPage(currentPage - 1));

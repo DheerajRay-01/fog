@@ -284,6 +284,9 @@ export const fetchProducts = createAsyncThunk(
         `/products/getProducts?page=${currentPage}&limit=${limit}&sort=${sortParam}`
       );
 
+      console.log(res.data);
+      
+
       return res.data || { data: [], total: 0, page: 1, pages: 1 };
     } catch (err) {
       return rejectWithValue(err.response?.data || "Failed to fetch products");
