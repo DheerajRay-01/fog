@@ -18,6 +18,10 @@ app.use(express.json());
 
 // Routes
 // app.use("/api/products", productRoutes);
+app.get("/", (req, res) => {
+  res.send("✅ Server is running!");
+});
+
 
 app.use("/api/products", productRoutes);
 
