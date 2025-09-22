@@ -13,7 +13,7 @@ _Assessment Submission – Software Developer Role (Future of Gaming)_
 - **Name:** Dheeraj Ray  
 - **Email:** dheerajray2003@gmail.com  
 - **Phone:** +91 7999768117  
-- **Resume:** [dheerajRayResume](#)  
+- **Resume:** [dheerajRayResume](https://drive.google.com/file/d/1IauyW58pxUijk9Eop2xqMROM3zsAx7Q0/view?usp=sharing)  
 
 ---
 
