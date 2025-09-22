@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from "react";
 import { IoShareSocial } from "react-icons/io5";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
+import { MdOutlineDeleteOutline, MdOutlineModeEditOutline } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { deleteProduct, updateProduct } from "../Utils/slice/productSlice.js"; // adjust path
+import toast, { Toaster } from 'react-hot-toast';
+import ProductFormModal from "./ProductFormModal.jsx";
 
 const actions = [
   { label: "Share", icon: IoShareSocial },
@@ -9,7 +14,23 @@ const actions = [
   { label: "Like", icon: FaRegHeart },
 ];
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onEdit }) => {
+  const dispatch = useDispatch();
+
+  const [isModelOpen,setIsModelOpen] = useState(false)
+
+  // Handle delete
+  const handleDelete = () => {
+    if (window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
+      dispatch(deleteProduct(product._id));
+      toast.success("Deleted Successfully")
+    }
+  };
+
+
+
+  
+
   return (
     <div className="group relative w-[220px] sm:w-[280px] bg-[#F4F5F7] rounded-lg overflow-hidden shadow hover:shadow-lg transition">
       {/* Discount Badge */}
@@ -37,12 +58,12 @@ const ProductCard = ({ product }) => {
         <div className="flex items-center gap-2">
           {product.salePrice && (
             <div className="text-gray-800 font-bold text-base">
-              Rp {product.salePrice.toLocaleString('id-ID')}
+              Rp {product.salePrice.toLocaleString("id-ID")}
             </div>
           )}
           {product.originalPrice && (
             <div className="text-gray-400 line-through text-sm">
-              Rp {product.originalPrice.toLocaleString('id-ID')}
+              Rp {product.originalPrice.toLocaleString("id-ID")}
             </div>
           )}
         </div>
@@ -54,6 +75,25 @@ const ProductCard = ({ product }) => {
         <button className="bg-white text-yellow-600 font-semibold px-6 py-2 rounded shadow hover:bg-yellow-100 transition">
           Add to Cart
         </button>
+
+        {/* Update + Delete */}
+        <div className="flex gap-3">
+          {/* Update Button */}
+          <button
+            onClick={() => setIsModelOpen(true)} // callback to open edit modal
+            className="bg-blue-500 text-white text-lg p-2 rounded-full shadow hover:bg-blue-600 transition"
+          >
+            <MdOutlineModeEditOutline />
+          </button>
+
+          {/* Delete Button */}
+          <button
+            onClick={handleDelete}
+            className="bg-red-500 text-white text-lg p-2 rounded-full shadow hover:bg-red-600 transition"
+          >
+            <MdOutlineDeleteOutline />
+          </button>
+        </div>
 
         {/* Action Buttons */}
         <div className="flex gap-4 justify-center items-center">
@@ -68,6 +108,7 @@ const ProductCard = ({ product }) => {
           ))}
         </div>
       </div>
+      <ProductFormModal isOpen={isModelOpen} onClose={()=>setIsModelOpen(false)} initialData={product}/>
     </div>
   );
 };
